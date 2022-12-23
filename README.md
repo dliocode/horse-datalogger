@@ -37,30 +37,24 @@ Adicione as seguintes pastas ao seu projeto, em *Project > Options > Delphi Comp
 
 [ClientIP](https://github.com/dliocode/horse-utils-clientip) - Utilizado para capturar o IP.
 
-# Informações
+## Observações
 
 Para usar este Middleware é necessário entender algumas coisas.
 
-## _Providers_ 
+_Providers_: Serve essencialmente para armazenar seus logs.
 
-Serve essencialmente para armazenar seus logs.
+Quais são os _Providers_ diponíveis: [Clique aqui](https://github.com/dliocode/datalogger#providers)
 
-## Quais são os _Providers_ diponíveis
-
-[Clique aqui](https://github.com/dliocode/datalogger#providers)
-
-## Em qual posição é recomendado utilizar este _provider_
-
-Recomendamos que seja adicionado na primeira posição, para que seja registrado todas as informações passadas por ele;
+Em qual posição é recomendado utilizar este _provider_ no [Horse](https://github.com/hashload/horse): Recomendamos que seja adicionado na primeira posição, para que seja registrado todas as informações passadas por ele;
 
 
-# Como Usar
+## Como Usar
 
 Para utilizar é necessário adicionar a Uses ```Horse.DataLogger``` e depois adicionar os _Providers_ escolhidos para fazer o registro dos logs;
 
 Agora que você já entendeu um pouco de como funciona, vamos aos exemplos;
 
-## Simples
+### Simples
 
 ```delphi
 uses 
@@ -83,7 +77,9 @@ end.
 
 ## Formatos Predefinidos
 
-``` Combined, Common, Dev, Short, Tiny ```
+``` 
+  Combined, Common, Dev, Short, Tiny 
+```
 
 Cada formato possui uma estrutura diferente e preestabelecida.
 
@@ -168,8 +164,11 @@ begin
   THorse
   .Use(
     THorseDataLogger.Logger(
-      '${request_method} ${request_raw_path_info}${request_query} ${response_status_code} ${response_content_length} - ${execution_time} ms', // Formato dos logs  
-      [TProviderConsole.Create]          // Adicionado o Middleware
+      // Formato dos logs  
+      '${request_method} ${request_raw_path_info}${request_query} ${response_status_code} ${response_content_length} - ${execution_time} ms', 
+
+      // Adicionado o Middleware
+      [TProviderConsole.Create]          
     )
   ) 
 
@@ -249,7 +248,12 @@ ${response_wwwauthenticate}
 
 Você pode adicionar vários _Providers_ para registrar cada solicitação em locais diferentes.
 
-Para este exemplo, vamos mostrar as requisições em Console e vamos salvar no formato Texto, tudo isso utilizando duas _Units_ para registrar ```   DataLogger.Provider.Console, DataLogger.Provider.TextFile ```.
+Para este exemplo, vamos mostrar as requisições em Console e vamos salvar no formato Texto, tudo isso utilizando duas _Units_ para registrar 
+``` 
+DataLogger.Provider.Console, DataLogger.Provider.TextFile 
+```
+
+### Múltiplos _Providers_
 
 ```delphi
 uses 
