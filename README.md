@@ -12,7 +12,7 @@
 
 # 
 
-Middleware projetado registrar todas às requisições e solicitações HTTP para o [Horse](https://github.com/hashload/horse).
+Middleware projetado para registrar todas às requisições e solicitações HTTP no [Horse](https://github.com/hashload/horse).
 
 Support: developer.dlio@gmail.com
 
@@ -33,7 +33,9 @@ Adicione as seguintes pastas ao seu projeto, em *Project > Options > Delphi Comp
 
 ### Dependências
 
-[DataLogger](https://github.com/dliocode/datalogger) - Essa é ferramenta utilizado para registrar todas solicitações HTTP do Horse. Para mais informações de como utilizar essa ferramenta em outras situações, [Samples](https://github.com/dliocode/datalogger#providers).
+[DataLogger](https://github.com/dliocode/datalogger) - Essa é ferramenta utilizado para registrar todas solicitações HTTP do Horse. 
+
+Para mais informações de como utilizar essa ferramenta em outras situações, [clique aqui](https://github.com/dliocode/datalogger#providers).
 
 [ClientIP](https://github.com/dliocode/horse-utils-clientip) - Utilizado para capturar o IP.
 
@@ -43,9 +45,9 @@ Para usar este Middleware é necessário entender algumas coisas.
 
 _Providers_: Serve essencialmente para armazenar seus logs.
 
-Quais são os _Providers_ diponíveis: [Clique aqui](https://github.com/dliocode/datalogger#providers)
+_Providers_ diponíveis: [Clique aqui](https://github.com/dliocode/datalogger#providers)
 
-Em qual posição é recomendado utilizar este _provider_ no [Horse](https://github.com/hashload/horse): Recomendamos que seja adicionado na primeira posição, para que seja registrado todas as informações passadas por ele;
+Em qual posição é recomendado utilizar este _provider_ no [Horse](https://github.com/hashload/horse): Recomendamos que seja adicionado na primeira posição, para que seja registrado todas as informações passadas por ele.
 
 
 ## Como Usar
