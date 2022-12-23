@@ -73,6 +73,7 @@ class constructor THorseDataLogger.Create;
 begin
   FCriticalSection := TCriticalSection.Create;
   FDataLogger := nil;
+  FLoggerProvider := [];
 end;
 
 class destructor THorseDataLogger.Destroy;
