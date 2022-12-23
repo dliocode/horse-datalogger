@@ -86,7 +86,9 @@ begin
   end
   else
     for I := Low(FLoggerProvider) to High(FLoggerProvider) do
-      FLoggerProvider[I].Free
+      FLoggerProvider[I].Free;
+
+  FCriticalSection.Free;
 end;
 
 class function THorseDataLogger.Logger(const AProvider: TArray<TDataLoggerProviderBase>): THorseCallback;
