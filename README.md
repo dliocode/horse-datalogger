@@ -12,7 +12,7 @@
 
 # 
 
-### Horse-DataLogger: Middleware projetado registrar todas às requisições e solicitações HTTP.
+Middleware projetado registrar todas às requisições e solicitações HTTP para o [Horse](https://github.com/hashload/horse).
 
 Support: developer.dlio@gmail.com
 
