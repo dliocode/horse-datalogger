@@ -38,7 +38,7 @@ uses
   Horse, Horse.Utils.ClientIP,
   DataLogger,
   Web.HTTPApp,
-  System.DateUtils, System.SysUtils, System.JSON, System.NetEncoding;
+  System.SysUtils, System.JSON, System.DateUtils, System.SyncObjs;
 
 type
 {$SCOPEDENUMS ON}
@@ -47,15 +47,18 @@ type
 
   THorseDataLogger = class
   private
-    class var FDataLogger: TDataLogger;
-    class var FLogFormat: string;
-    class var FLoggerProvider: TArray<TDataLoggerProviderBase>;
+  class var
+    FCriticalSection: TCriticalSection;
+    FDataLogger: TDataLogger;
+    FLogFormat: string;
+    FLoggerProvider: TArray<TDataLoggerProviderBase>;
 
     class function ValidateValue(AValue: Int64): string; overload;
     class function ValidateValue(AValue: string): string; overload;
     class function ValidateValue(AValue: TDateTime): string; overload;
 
-    class destructor UnInitialize;
+    class constructor Create;
+    class destructor Destroy;
   public
     class function Logger(const AProvider: TArray<TDataLoggerProviderBase>): THorseCallback; overload;
     class function Logger(const ALogFormat: THorseDataLoggerFormat; const AProvider: TArray<TDataLoggerProviderBase>): THorseCallback; overload;
@@ -65,6 +68,26 @@ type
 implementation
 
 { THorseDataLogger }
+
+class constructor THorseDataLogger.Create;
+begin
+  FCriticalSection := TCriticalSection.Create;
+  FDataLogger := nil;
+end;
+
+class destructor THorseDataLogger.Destroy;
+var
+  I: Integer;
+begin
+  if Assigned(FDataLogger) then
+  begin
+    FDataLogger.Free;
+    FDataLogger := nil;
+  end
+  else
+    for I := Low(FLoggerProvider) to High(FLoggerProvider) do
+      FLoggerProvider[I].Free
+end;
 
 class function THorseDataLogger.Logger(const AProvider: TArray<TDataLoggerProviderBase>): THorseCallback;
 begin
@@ -121,9 +144,17 @@ begin
     begin
       if not Assigned(FDataLogger) then
       begin
-        FDataLogger := TDataLogger.Builder;
-        FDataLogger.SetProvider(FLoggerProvider);
-        FDataLogger.SetLogFormat(FLogFormat);
+        FCriticalSection.Acquire;
+        try
+          if not Assigned(FDataLogger) then
+          begin
+            FDataLogger := TDataLogger.Builder;
+            FDataLogger.SetProvider(FLoggerProvider);
+            FDataLogger.SetLogFormat(FLogFormat);
+          end;
+        finally
+          FCriticalSection.Release;
+        end;
       end;
 
       LJOMessage := TJSONObject.Create;
@@ -226,20 +257,6 @@ begin
         LJOMessage.Free;
       end;
     end;
-end;
-
-class destructor THorseDataLogger.UnInitialize;
-var
-  I: Integer;
-begin
-  if Assigned(FDataLogger) then
-  begin
-    FDataLogger.Free;
-    FDataLogger := nil;
-  end
-  else
-    for I := Low(FLoggerProvider) to High(FLoggerProvider) do
-      FLoggerProvider[I].Free
 end;
 
 class function THorseDataLogger.ValidateValue(AValue: Int64): string;
