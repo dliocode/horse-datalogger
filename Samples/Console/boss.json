@@ -1,0 +1,11 @@
+{
+	"name": "Console",
+	"description": "",
+	"version": "1.0.0",
+	"homepage": "",
+	"mainsrc": ".",
+	"projects": [],
+	"dependencies": {
+		"https://github.com/dliocode/horse-datalogger": "^0.0.1"
+	}
+}

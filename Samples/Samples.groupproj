@@ -1,0 +1,60 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{79B28618-0FF0-4E98-A5FB-D75D45CCD8CC}</ProjectGuid>
+    </PropertyGroup>
+    <ItemGroup>
+        <Projects Include="Console\SampleConsole.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="ConsoleAndElasticSearch\SampleConsoleElasticSearch.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="ConsoleAndTextFile\SampleConsoleTextFile.dproj">
+            <Dependencies/>
+        </Projects>
+    </ItemGroup>
+    <ProjectExtensions>
+        <Borland.Personality>Default.Personality.12</Borland.Personality>
+        <Borland.ProjectType/>
+        <BorlandProject>
+            <Default.Personality/>
+        </BorlandProject>
+    </ProjectExtensions>
+    <Target Name="SampleConsole">
+        <MSBuild Projects="Console\SampleConsole.dproj"/>
+    </Target>
+    <Target Name="SampleConsole:Clean">
+        <MSBuild Projects="Console\SampleConsole.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="SampleConsole:Make">
+        <MSBuild Projects="Console\SampleConsole.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="SampleConsoleElasticSearch">
+        <MSBuild Projects="ConsoleAndElasticSearch\SampleConsoleElasticSearch.dproj"/>
+    </Target>
+    <Target Name="SampleConsoleElasticSearch:Clean">
+        <MSBuild Projects="ConsoleAndElasticSearch\SampleConsoleElasticSearch.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="SampleConsoleElasticSearch:Make">
+        <MSBuild Projects="ConsoleAndElasticSearch\SampleConsoleElasticSearch.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="SampleConsoleTextFile">
+        <MSBuild Projects="ConsoleAndTextFile\SampleConsoleTextFile.dproj"/>
+    </Target>
+    <Target Name="SampleConsoleTextFile:Clean">
+        <MSBuild Projects="ConsoleAndTextFile\SampleConsoleTextFile.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="SampleConsoleTextFile:Make">
+        <MSBuild Projects="ConsoleAndTextFile\SampleConsoleTextFile.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Build">
+        <CallTarget Targets="SampleConsole;SampleConsoleElasticSearch;SampleConsoleTextFile"/>
+    </Target>
+    <Target Name="Clean">
+        <CallTarget Targets="SampleConsole:Clean;SampleConsoleElasticSearch:Clean;SampleConsoleTextFile:Clean"/>
+    </Target>
+    <Target Name="Make">
+        <CallTarget Targets="SampleConsole:Make;SampleConsoleElasticSearch:Make;SampleConsoleTextFile:Make"/>
+    </Target>
+    <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+</Project>

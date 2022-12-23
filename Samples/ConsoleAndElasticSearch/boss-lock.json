@@ -1,0 +1,62 @@
+{
+	"hash": "d41d8cd98f00b204e9800998ecf8427e",
+	"updated": "2022-12-23T09:09:14.8218651-03:00",
+	"installedModules": {
+		"github.com/dliocode/datalogger": {
+			"name": "datalogger",
+			"version": "2.1.5",
+			"hash": "f15cd0547edfdd4e3ca740a8cee1a5c0",
+			"artifacts": {},
+			"failed": false,
+			"changed": false
+		},
+		"github.com/dliocode/horse-utils-clientip": {
+			"name": "horse-utils-clientip",
+			"version": "0.0.8",
+			"hash": "83125fa6038e2377749e27e23b8f3aee",
+			"artifacts": {},
+			"failed": false,
+			"changed": false
+		},
+		"github.com/hashload/horse": {
+			"name": "horse",
+			"version": "3.0.2",
+			"hash": "929cb417c573af469c997a7e1fda5dbb",
+			"artifacts": {},
+			"failed": false,
+			"changed": false
+		},
+		"https://github.com/danieleteti/delphiredisclient": {
+			"name": "delphiredisclient",
+			"version": "v2.2",
+			"hash": "d56fa90792fa7f255deac3872c2ef839",
+			"artifacts": {},
+			"failed": false,
+			"changed": false
+		},
+		"https://github.com/danieleteti/delphistompclient": {
+			"name": "delphistompclient",
+			"version": "master",
+			"hash": "cb6937b7758328924988f916cc4ddbbb",
+			"artifacts": {},
+			"failed": false,
+			"changed": false
+		},
+		"https://github.com/dliocode/horse-datalogger": {
+			"name": "horse-datalogger",
+			"version": "0.0.1",
+			"hash": "4c28090c54d715565aa1110ce04fd92f",
+			"artifacts": {},
+			"failed": false,
+			"changed": false
+		},
+		"https://github.com/dliocode/sendemail": {
+			"name": "sendemail",
+			"version": "1.015",
+			"hash": "1127e52abe14218cc8430c70d1950ca5",
+			"artifacts": {},
+			"failed": false,
+			"changed": false
+		}
+	}
+}
