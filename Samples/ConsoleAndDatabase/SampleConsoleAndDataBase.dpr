@@ -46,27 +46,27 @@ begin
 
   THorse
     .Use(THorseDataLogger.Logger([
-    TProviderConsole.Create,
+      TProviderConsole.Create,
 
-    TProviderEvents.Create
-    .OnAny(
-      procedure(const AItem: TJSONObject)
-      var
-        LQuery: TFDQuery;
-      begin
-        LQuery := TFDQuery.Create(FDConnection1);
-        try
-          LQuery.Connection := FDConnection1;
-          LQuery.SQL.Text := 'SELECT * FROM LogDB WHERE 1 = 2';
+      TProviderEvents.Create
+      .OnAny(
+        procedure(const AItem: TJSONObject)
+        var
+          LQuery: TFDQuery;
+        begin
+          LQuery := TFDQuery.Create(FDConnection1);
+          try
+            LQuery.Connection := FDConnection1;
+            LQuery.SQL.Text := 'SELECT * FROM LogDB WHERE 1 = 2';
 
-          LQuery.Close;
-          LQuery.Open;
+            LQuery.Close;
+            LQuery.Open;
 
-          LQuery.LoadFromJSON(AItem.ToString);
-        finally
-          LQuery.Free;
-        end;
-      end)
+            LQuery.LoadFromJSON(AItem.ToString);
+          finally
+            LQuery.Free;
+          end;
+        end)
     ])) // Adicionando Middleware e o Provider
 
     .Get('/ping',
