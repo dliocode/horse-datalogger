@@ -1,11 +1,11 @@
 {
 	"hash": "d41d8cd98f00b204e9800998ecf8427e",
-	"updated": "2022-12-23T09:09:14.8218651-03:00",
+	"updated": "2022-12-23T09:03:02.8941888-03:00",
 	"installedModules": {
 		"github.com/dliocode/datalogger": {
 			"name": "datalogger",
 			"version": "2.1.6",
-			"hash": "2d2f7b3cda8c86f6d2d560656e88177c",
+			"hash": "b9f0402517c61e3467d50c01e2d984d1",
 			"artifacts": {},
 			"failed": false,
 			"changed": false
@@ -22,6 +22,14 @@
 			"name": "horse",
 			"version": "3.0.2",
 			"hash": "929cb417c573af469c997a7e1fda5dbb",
+			"artifacts": {},
+			"failed": false,
+			"changed": false
+		},
+		"github.com/viniciussanchez/dataset-serialize": {
+			"name": "dataset-serialize",
+			"version": "v2.4.8",
+			"hash": "35c05c0196720756923c48da654e4817",
 			"artifacts": {},
 			"failed": false,
 			"changed": false
@@ -45,7 +53,7 @@
 		"https://github.com/dliocode/horse-datalogger": {
 			"name": "horse-datalogger",
 			"version": "0.0.2",
-			"hash": "b60106d899dd716b4330ddaccecafdaf",
+			"hash": "8023ce53f766b06570f3d82587959fa6",
 			"artifacts": {},
 			"failed": false,
 			"changed": false

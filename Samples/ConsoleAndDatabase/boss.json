@@ -1,0 +1,12 @@
+{
+	"name": "ConsoleAndDataBase",
+	"description": "",
+	"version": "1.0.0",
+	"homepage": "",
+	"mainsrc": ".",
+	"projects": [],
+	"dependencies": {
+		"github.com/viniciussanchez/dataset-serialize": "^v2.4.8",
+		"https://github.com/dliocode/horse-datalogger": "^0.0.1"
+	}
+}

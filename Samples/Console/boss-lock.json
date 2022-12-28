@@ -4,8 +4,8 @@
 	"installedModules": {
 		"github.com/dliocode/datalogger": {
 			"name": "datalogger",
-			"version": "2.1.5",
-			"hash": "f15cd0547edfdd4e3ca740a8cee1a5c0",
+			"version": "2.1.6",
+			"hash": "2d2f7b3cda8c86f6d2d560656e88177c",
 			"artifacts": {},
 			"failed": false,
 			"changed": false
@@ -44,8 +44,8 @@
 		},
 		"https://github.com/dliocode/horse-datalogger": {
 			"name": "horse-datalogger",
-			"version": "0.0.1",
-			"hash": "4c28090c54d715565aa1110ce04fd92f",
+			"version": "0.0.2",
+			"hash": "b60106d899dd716b4330ddaccecafdaf",
 			"artifacts": {},
 			"failed": false,
 			"changed": false
