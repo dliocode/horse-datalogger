@@ -4,8 +4,8 @@
 	"installedModules": {
 		"github.com/dliocode/datalogger": {
 			"name": "datalogger",
-			"version": "2.1.6",
-			"hash": "b9f0402517c61e3467d50c01e2d984d1",
+			"version": "2.1.7",
+			"hash": "6c3ea42ba8ea507543d259950093355a",
 			"artifacts": {},
 			"failed": false,
 			"changed": false
