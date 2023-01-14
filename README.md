@@ -10,7 +10,7 @@
   <img src="https://tokei.rs/b1/github/dliocode/horse-datalogger?color=yellow&category=files">
 </p>
 
-# 
+#
 
 Middleware projetado para registrar todas às requisições e solicitações HTTP no [Horse](https://github.com/hashload/horse).
 
@@ -19,13 +19,14 @@ Support: developer.dlio@gmail.com
 ## ⚙️ Instalação
 
 ### Para instalar em seu projeto usando [boss](https://github.com/HashLoad/boss):
+
 ```sh
 $ boss install github.com/dliocode/horse-datalogger
 ```
 
 ### Instalação Manual
 
-Adicione as seguintes pastas ao seu projeto, em *Project > Options > Delphi Compiler > Search path*
+Adicione as seguintes pastas ao seu projeto, em _Project > Options > Delphi Compiler > Search path_
 
 ```
 ../src
@@ -33,7 +34,7 @@ Adicione as seguintes pastas ao seu projeto, em *Project > Options > Delphi Comp
 
 ### Dependências
 
-[DataLogger](https://github.com/dliocode/datalogger) - Essa é ferramenta utilizado para registrar todas solicitações HTTP do Horse. 
+[DataLogger](https://github.com/dliocode/datalogger) - Essa é ferramenta utilizado para registrar todas solicitações HTTP do Horse.
 
 Para mais informações de como utilizar essa ferramenta em outras situações, [clique aqui](https://github.com/dliocode/datalogger#providers).
 
@@ -49,19 +50,20 @@ _Providers_ diponíveis: [Clique aqui](https://github.com/dliocode/datalogger#pr
 
 Em qual posição é recomendado utilizar este _provider_ no [Horse](https://github.com/hashload/horse): Recomendamos que seja adicionado na primeira posição, para que seja registrado todas as informações passadas por ele.
 
-
 ## Como Usar
 
-Para utilizar é necessário adicionar a Uses ```Horse.DataLogger``` e depois adicionar os _Providers_ escolhidos para fazer o registro dos logs;
+Para utilizar é necessário adicionar a Uses `Horse.DataLogger` e depois adicionar os _Providers_ escolhidos para fazer o registro dos logs;
 
 Agora que você já entendeu um pouco de como funciona, vamos aos exemplos;
 
 ### Simples
 
 ```delphi
-uses 
-  Horse, Horse.DataLogger,
-  DataLogger.Provider.Console; // Provider para Console
+uses
+  Horse, Horse.Constants,
+  Horse.DataLogger,
+  DataLogger.Provider.Console, // Provider para Console
+  System.SysUtils;
 
 begin
   THorse
@@ -73,14 +75,20 @@ begin
       Res.Send('pong');
     end);
 
-  THorse.Listen(9000);
+  THorse.KeepConnectionAlive := True;
+  THorse.Listen(8080,
+    procedure(AHorse: THorse)
+    begin
+      Writeln(' ' + Format(START_RUNNING, [THorse.Host, THorse.Port]));
+      Writeln;
+    end);
 end.
 ```
 
 ## Formatos Predefinidos
 
-``` 
-  Combined, Common, Dev, Short, Tiny 
+```
+  Combined, Common, Dev, Short, Tiny
 ```
 
 Cada formato possui uma estrutura diferente e preestabelecida.
@@ -128,18 +136,20 @@ ${request_method} ${request_raw_path_info}${request_query} ${response_status_cod
 ## Exemplo de uso
 
 ```delphi
-uses 
-  Horse, Horse.DataLogger,
-  DataLogger.Provider.Console; // Provider para Console
+uses
+  Horse, Horse.Constants,
+  Horse.DataLogger,
+  DataLogger.Provider.Console, // Provider para Console
+  System.SysUtils;
 
 begin
   THorse
   .Use(
     THorseDataLogger.Logger(
-      THorseDataLoggerFormat.tfCombined, // Formato dos logs  
+      THorseDataLoggerFormat.tfCombined, // Formato dos logs
       [TProviderConsole.Create]          // Adicionado o Middleware
     )
-  ) 
+  )
 
   .Get('/ping',
     procedure(Req: THorseRequest; Res: THorseResponse; Next: TProc)
@@ -149,7 +159,13 @@ begin
 
    // output: 0:0:0:0:0:0:0:1 [2022-12-22 17:18:31:791] "GET /ping HTTP/1.1" 200 4 "-" "PostmanRuntime/7.30.0"
 
-  THorse.Listen(9000);
+  THorse.KeepConnectionAlive := True;
+  THorse.Listen(8080,
+    procedure(AHorse: THorse)
+    begin
+      Writeln(' ' + Format(START_RUNNING, [THorse.Host, THorse.Port]));
+      Writeln;
+    end);
 end.
 ```
 
@@ -158,21 +174,23 @@ end.
 Você pode definir seus próprios formatos de utilização
 
 ```delphi
-uses 
-  Horse, Horse.DataLogger,
-  DataLogger.Provider.Console; // Provider para Console
+uses
+  Horse, Horse.Constants,
+  Horse.DataLogger,
+  DataLogger.Provider.Console, // Provider para Console
+  System.SysUtils;
 
 begin
   THorse
   .Use(
     THorseDataLogger.Logger(
-      // Formato dos logs  
-      '${request_method} ${request_raw_path_info}${request_query} ${response_status_code} ${response_content_length} - ${execution_time} ms', 
+      // Formato dos logs
+      '${request_method} ${request_raw_path_info}${request_query} ${response_status_code} ${response_content_length} - ${execution_time} ms',
 
       // Adicionado o Middleware
-      [TProviderConsole.Create]          
+      [TProviderConsole.Create]
     )
-  ) 
+  )
 
   .Get('/ping',
     procedure(Req: THorseRequest; Res: THorseResponse; Next: TProc)
@@ -182,7 +200,13 @@ begin
 
    // output: 0:0:0:0:0:0:0:1 [2022-12-22 17:18:31:791] "GET /ping HTTP/1.1" 200 4 "-" "PostmanRuntime/7.30.0"
 
-  THorse.Listen(9000);
+  THorse.KeepConnectionAlive := True;
+  THorse.Listen(8080,
+    procedure(AHorse: THorse)
+    begin
+      Writeln(' ' + Format(START_RUNNING, [THorse.Host, THorse.Port]));
+      Writeln;
+    end);
 end.
 ```
 
@@ -190,7 +214,7 @@ end.
 
 ```
 ${time}
-${execution_time}
+${execution_time} // Time in ms
 ${request_accept}
 ${request_authorization}
 ${request_cache_control}
@@ -250,34 +274,36 @@ ${response_wwwauthenticate}
 
 Você pode adicionar vários _Providers_ para registrar cada solicitação em locais diferentes.
 
-Para este exemplo, vamos mostrar as requisições em Console e vamos salvar no formato Texto, tudo isso utilizando duas _Units_ para registrar 
-``` 
-DataLogger.Provider.Console, DataLogger.Provider.TextFile 
+Para este exemplo, vamos mostrar as requisições em Console e vamos salvar no formato Texto, tudo isso utilizando duas _Units_ para registrar
+
+```
+DataLogger.Provider.Console, DataLogger.Provider.TextFile
 ```
 
 ### Múltiplos _Providers_
 
 ```delphi
-uses 
-  Horse, Horse.DataLogger,
+uses
+  Horse, Horse.Constants,
+  Horse.DataLogger,
   DataLogger.Provider.Console, // Provider para Console
   DataLogger.Provider.TextFile, // Provider para TextFile
-  System.IOUtils;
+  System.IOUtils, System.SysUtils;
 
 begin
   THorse
   .Use(
     THorseDataLogger.Logger(
-      THorseDataLoggerFormat.tfCombined, // Formato dos logs  
+      THorseDataLoggerFormat.tfCombined, // Formato dos logs
         TProviderConsole.Create,
-      
+
         TProviderTextFile.Create
           .LogDir(TPath.GetDirectoryName(ParamStr(0)) + '\log\request')
-          .PrefixFileName('request_')  
-          .Extension('.txt')      
-      ]          
+          .PrefixFileName('request_')
+          .Extension('.txt')
+      ]
     )
-  ) 
+  )
 
   .Get('/ping',
     procedure(Req: THorseRequest; Res: THorseResponse; Next: TProc)
@@ -287,6 +313,12 @@ begin
 
    // output: 0:0:0:0:0:0:0:1 [2022-12-22 17:18:31:791] "GET /ping HTTP/1.1" 200 4 "-" "PostmanRuntime/7.30.0"
 
-  THorse.Listen(9000);
+  THorse.KeepConnectionAlive := True;
+  THorse.Listen(8080,
+    procedure(AHorse: THorse)
+    begin
+      Writeln(' ' + Format(START_RUNNING, [THorse.Host, THorse.Port]));
+      Writeln;
+    end);
 end.
 ```
