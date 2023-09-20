@@ -153,7 +153,7 @@ begin
           begin
             FDataLogger := TDataLogger.Builder;
             FDataLogger.SetProvider(FLoggerProvider);
-            FDataLogger.SetLogFormat(FLogFormat);
+            FDataLogger.SetTemplate(FLogFormat);
           end;
         finally
           FCriticalSection.Release;
